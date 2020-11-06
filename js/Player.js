@@ -1,7 +1,8 @@
 class Player {
   constructor(){
     this.index = null;
-    this.distance = 0;
+    this.distanceY = 0;
+    this.distanceX = 0;
     this.name = null;
     this.rank = null;
   }
@@ -23,7 +24,8 @@ class Player {
     var playerIndex = "players/player" + this.index;
     database.ref(playerIndex).set({
       name:this.name,
-      distance:this.distance
+      distanceY:this.distanceY,
+      distanceX:this.distanceX
     });
   }
 

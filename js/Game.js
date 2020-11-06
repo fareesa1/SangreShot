@@ -30,13 +30,13 @@ class Game {
     }
 
     user1 = createSprite(100,200);
-    user1.addImage("user1",user1_img);
+    user1.addAnimation("user1",user1_img);
     user2 = createSprite(300,200);
-    user2.addImage("user2",user2_img);
+   // user2.addImage("user2",user2_img);
     user3 = createSprite(500,200);
-    user3.addImage("user3",user3_img);
+   // user3.addImage("user3",user3_img);
     user4 = createSprite(700,200);
-    user4.addImage("user4",user4_img);
+   // user4.addImage("user4",user4_img);
     users = [user1, user2, user3, user4];
   }
 
@@ -48,7 +48,7 @@ class Game {
     
     if(allPlayers !== undefined){
       background(rgb(198,135,103));
-      image(track, 0,-displayHeight*4,displayWidth, displayHeight*5);
+      image(track, 0,-displayHeight*4,displayWidth*5, displayHeight*5);
       
       //var display_position = 100;
       
@@ -64,9 +64,9 @@ class Game {
         index = index + 1 ;
 
         //position the users a little away from each other in x direction
-        x = x + 200;
+        x = displayWidth - allPlayers[plr].distanceX;
         //use data form the database to display the users in y direction
-        y = displayHeight - allPlayers[plr].distance;
+        y = displayHeight - allPlayers[plr].distanceY;
         users[index-1].x = x;
         users[index-1].y = y;
        // console.log(index, player.index)
@@ -77,7 +77,7 @@ class Game {
           fill("red");
           ellipse(x,y,60,60);
           users[index - 1].shapeColor = "red";
-          camera.position.x = displayWidth/2;
+          camera.position.x = users[index-1].x;
           camera.position.y = users[index-1].y;
         }
        
@@ -88,16 +88,26 @@ class Game {
     }
 
     if(keyIsDown(DOWN_ARROW) && player.index !== null){
-      player.distance -=10
+      player.distanceY -=10
       player.update();
     }
 
     if(keyIsDown(UP_ARROW) && player.index !== null){
-      player.distance +=10
+      player.distanceY +=10
       player.update();
     }
 
-    if(player.distance > 3860){
+    if(keyIsDown(LEFT_ARROW) && player.index !== null){
+      player.distanceX +=10
+      player.update();
+    }
+
+    if(keyIsDown(RIGHT_ARROW) && player.index !== null){
+      player.distanceX -=10
+      player.update();
+    }
+
+    if(player.distanceY > 3860){
       gameState = 2;
       player.rank +=1
       Player.updateusersAtEnd(player.rank)
