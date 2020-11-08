@@ -8,22 +8,24 @@ var distanceX = 0;
 var database;
 var ground, groundImage;
 var form, player, game;
-
+var grass_up, grass_down, grass_left,grass_right;
 var users, user1, user2, user3, user4;
 
 var track, user1_img, user2_img, user3_img, user4_img;
 
 function preload(){
   track = loadImage("../images/ground.png");
+  grass_down = loadImage("../images/grass.jpg");
+  grass_up = loadImage("../images/grass.jpg");
   user1_img = loadAnimation("../images/3.png","../images/2.png","../images/1.png");
-  // user2_img = loadImage("../images/user2.png");
-  // user3_img = loadImage("../images/user3.png");
-  // user4_img = loadImage("../images/user4.png");
+  user2_img = loadAnimation("../images/3.png","../images/2.png","../images/1.png");
+  user3_img = loadAnimation("../images/3.png","../images/2.png","../images/1.png");
+  user4_img = loadAnimation("../images/3.png","../images/2.png","../images/1.png");
   groundImage = loadImage("../images/block.jpg");
 }
 
 function setup(){
-  canvas = createCanvas(displayWidth - 20, displayHeight-30);
+  canvas = createCanvas(displayWidth, displayHeight);
   database = firebase.database();
   ground = createSprite(100,100)
   ground.addImage(groundImage)
