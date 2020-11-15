@@ -38,6 +38,10 @@ class Game {
     user4 = createSprite(700,200);
     user4.addAnimation("user4",user4_img);
     users = [user1, user2, user3, user4];
+
+    track1 = createSprite(800,600)
+    track1.addImage(track);
+    track1.debug = true
   }
 
   play(){
@@ -48,9 +52,11 @@ class Game {
     
     if(allPlayers !== undefined){
       background(0,120,120);
-   //   image(track, 0,-displayHeight*4,displayWidth*5, displayHeight*5);
-      image(grass_down,0,-displayHeight)
-      
+      imageMode(CENTER);
+
+      image(grass_img,800,600)
+     
+  
      // image(grass_up,0,0)
       //var display_position = 100;
       
@@ -81,7 +87,14 @@ class Game {
           users[index - 1].shapeColor = "white";
           camera.position.x = users[index-1].x;
           camera.position.y = users[index-1].y;
-          
+          if(keyIsDown(32) && player.index !== null){
+            player.distanceY +=10
+            player.update();
+            var shoot = createSprite(users[index-1].x,users[index-1].y)
+            shoot.addImage(shootImg)
+            shoot.velocityX = 5
+            console.log("shoot")
+          }
         }
        
         //textSize(15);
@@ -90,14 +103,25 @@ class Game {
 
     }
 
+    
+
     if(keyIsDown(DOWN_ARROW) && player.index !== null){
       player.distanceY -=10
       player.update();
     }
 
+
+    // if(keyIsDown("space") && player.index !== null){
+    //  var shoot = createSprite(users[index-1].x,users[index-1].y)
+    //  shoot.addImage(shoot1)
+    //  shoot.velocityX = 5
+    //  console.log("shoot")
+    // }
+
     if(keyIsDown(UP_ARROW) && player.index !== null){
       player.distanceY +=10
       player.update();
+    
     }
 
     if(keyIsDown(LEFT_ARROW) && player.index !== null){
@@ -135,9 +159,7 @@ class Game {
       Player.updateusersAtEnd(player.rank)
     }
 
-    
-    console.log(player.distanceX);
-    console.log(player.distanceY);
+   
     drawSprites();
   }
 
